@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FWI Prediction Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-grid">
+            <h1>FWI Prediction</h1>
+            <!-- Main Input For Receiving Query to our ML -->
+            <form action="{{ url_for('predict_datapoint') }}" method="post">
+                <input type="text" name="Temperature" placeholder="Temperature" required /><br>
+                <input type="text" name="RH" placeholder="RH" required /><br>
+                <input type="text" name="Ws" placeholder="WS" required /><br>
+                <input type="text" name="Rain" placeholder="Rain" required /><br>
+                <input type="text" name="FFMC" placeholder="FFMC" required /><br>
+                <input type="text" name="DMC" placeholder="DMC" required /><br>
+                <input type="text" name="ISI" placeholder="ISI" required /><br>
+                <label for="Classes">Fire:</label>
+                <select name="Classes" id="Classes" required>
+                    <option value="" disabled selected>Select Fire</option>
+                    <option value="0">0 (No Fire)</option>
+                    <option value="1">1 (Fire)</option>
+                </select>
+                <br>
+                <label for="Region">Region:</label>
+                <select name="Region" id="Region" required>
+                    <option value="" disabled selected>Select Region</option>
+                    <option value="0">0 (Bejaia)</option>
+                    <option value="1">1 (Sidi-Bel Abbes)</option>
+                </select>
+                <br>
+                <button type="submit" class="center-btn">Predict</button>
+            </form>
+            {% if result %}
+            <h2>THE FWI prediction is {{ result }}</h2>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
